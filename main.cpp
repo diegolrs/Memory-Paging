@@ -23,6 +23,21 @@ vector<int> cloneVector(vector<int> vect1)
     return vect2;
 }
 
+FIFO* processFifo(int boardQuantity, Queue<int>* pageInputs)
+{
+    FIFO* fifo = new FIFO(boardQuantity);
+    int inputSize = pageInputs->Length();
+    
+    for(int i = 0; i < inputSize; i++)
+    {
+        int page = pageInputs->Dequeue();
+        fifo->HoldPage(new Page(page));
+        pageInputs->Enqueue(page);
+    }
+
+    return fifo;
+}
+
 int main()
 {
     vector<int> allInputs = readDataFromFile();
@@ -31,15 +46,7 @@ int main()
     int boardQuantity = queue->Dequeue();
     int inputSize = queue->Length();
 
-    FIFO* fifo = new FIFO(boardQuantity);
-    
-    // Process FIFO
-    for(int i = 0; i < inputSize; i++)
-    {
-        int page = queue->Dequeue();
-        fifo->HoldPage(new Page(page));
-        queue->Enqueue(page);
-    }
+    FIFO* fifo = processFifo(boardQuantity, queue);
 
     cout << "FIFO " << fifo->GetMissPageQuant();
 

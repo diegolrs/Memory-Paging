@@ -4,6 +4,7 @@
 #include "../Slots/Page.hpp"
 #include "../Queue/QueueUtils.hpp"
 
+// First In, First Out
 class FIFO
 {
     public:

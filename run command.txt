@@ -1,0 +1,1 @@
+g++ *.cpp FileReader\*.cpp Slots\*.cpp Paging\*.cpp -o program

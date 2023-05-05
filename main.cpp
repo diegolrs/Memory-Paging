@@ -8,6 +8,7 @@
 #include "Queue/Queue.hpp"
 #include "Queue/QueueUtils.hpp"
 #include "Paging/FIFO.hpp"
+#include "Paging/LRU.hpp"
 
 using namespace std;
 
@@ -38,6 +39,21 @@ FIFO* processFifo(int boardQuantity, Queue<int>* pageInputs)
     return fifo;
 }
 
+LRU* processLRU(int boardQuantity, Queue<int>* pageInputs)
+{
+    LRU* lru = new LRU(boardQuantity);
+    int inputSize = pageInputs->Length();
+    
+    for(int i = 0; i < inputSize; i++)
+    {
+        int page = pageInputs->Dequeue();
+        lru->HoldPage(new Page(page));
+        pageInputs->Enqueue(page);
+    }
+
+    return lru;
+}
+
 int main()
 {
     vector<int> allInputs = readDataFromFile();
@@ -47,8 +63,10 @@ int main()
     int inputSize = queue->Length();
 
     FIFO* fifo = processFifo(boardQuantity, queue);
+    LRU* lru = processLRU(boardQuantity, queue);
 
-    cout << "FIFO " << fifo->GetMissPageQuant();
+    cout << "FIFO " << fifo->GetMissPageQuant() << endl;
+    cout << "LRU " << lru->GetMissPageQuant() << endl;
 
     return 0;
 }

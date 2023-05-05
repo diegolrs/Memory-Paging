@@ -1,9 +1,10 @@
 #include "Optimal.hpp"
 
 
-Optimal::Optimal(int boardQuant)
+Optimal::Optimal(int boardQuant, Queue<int>* pageInputs)
 {
     missPageQuant = 0;
+    this->pageInputs = pageInputs->Copy();
     boards = new Queue<Board*>();
 
     for(int i = 0; i < boardQuant; i++)
@@ -15,16 +16,15 @@ Optimal::Optimal(int boardQuant)
 
 void Optimal::HoldPage(Page* page)
 {
+    pageInputs->Dequeue();
+
     if(PageIsOnBoard(page))
     {
         return;
     }
     
     this->missPageQuant++;
-
-    Board* b = boards->Dequeue();
-    b->HoldPage(page);
-    boards->Enqueue(b);
+    boards = OptimalUtils::sortBoards(boards, pageInputs);
 }
 
 int Optimal::GetMissPageQuant()
@@ -60,13 +60,4 @@ int Optimal::IndexOfBoardWithPage(Page* page)
     }
 
     return -1;
-}
-
-void Optimal::SendBoardToEndOfQueue(int boardIndex)
-{
-    std::vector<Board*> vec = QueueUtils::to_std_vector(boards);
-    Board* b = vec[boardIndex];
-    vec.erase(vec.begin()+boardIndex);
-    boards = QueueUtils::from_std_vector(vec);
-    boards->Enqueue(b);
 }

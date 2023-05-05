@@ -9,6 +9,7 @@
 #include "Queue/QueueUtils.hpp"
 #include "Paging/FIFO.hpp"
 #include "Paging/LRU.hpp"
+#include "Paging/Optimal.hpp"
 
 using namespace std;
 
@@ -54,6 +55,21 @@ LRU* processLRU(int boardQuantity, Queue<int>* pageInputs)
     return lru;
 }
 
+Optimal* processOptimal(int boardQuantity, Queue<int>* pageInputs)
+{
+    Optimal* optimal = new Optimal(boardQuantity, pageInputs);
+    int inputSize = pageInputs->Length();
+    
+    for(int i = 0; i < inputSize; i++)
+    {
+        int page = pageInputs->Dequeue();
+        optimal->HoldPage(new Page(page));
+        pageInputs->Enqueue(page);
+    }
+
+    return optimal;
+}
+
 int main()
 {
     vector<int> allInputs = readDataFromFile();
@@ -64,9 +80,11 @@ int main()
 
     FIFO* fifo = processFifo(boardQuantity, queue);
     LRU* lru = processLRU(boardQuantity, queue);
+    Optimal* optimal = processOptimal(boardQuantity, queue);
 
     cout << "FIFO " << fifo->GetMissPageQuant() << endl;
     cout << "LRU " << lru->GetMissPageQuant() << endl;
+    cout << "OTM " << optimal->GetMissPageQuant() << endl;
 
     return 0;
 }

@@ -11,14 +11,12 @@ class Optimal
     public:
         Optimal(int boardQuant);
         void ProcessInputs(Queue<int>* pageInputs);
-
-        void HoldPage(Page* page, Queue<int>* pageInputs);
         int GetMissPageQuant();
     private:
         Queue<Board*>* boards;
         int missPageQuant;
-        Queue<int>* pageInputs;
         
+        void HoldPage(Page* page, Queue<int>* pageInputs);
         bool PageIsOnBoard(Page* page);
         int IndexOfBoardWithPage(Page* page);
 };

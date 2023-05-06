@@ -9,12 +9,12 @@ class FIFO
 {
     public:
         FIFO(int boardQuant);
-        void HoldPage(Page* page, Queue<int>* pageInputs);
-        int GetMissPageQuant();
         void ProcessInputs(Queue<int>* pageInputs);
+        int GetMissPageQuant();
     private:
         Queue<Board*>* boards;
         int missPageQuant;
         
+        void HoldPage(Page* page, Queue<int>* pageInputs);
         bool PageIsOnBoard(Page* page);
 };

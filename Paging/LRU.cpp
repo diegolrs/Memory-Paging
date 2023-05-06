@@ -12,7 +12,18 @@ LRU::LRU(int boardQuant)
     }
 }
 
-void LRU::HoldPage(Page* page)
+void LRU::ProcessInputs(Queue<int>* pageInputs)
+{
+    int inputSize = pageInputs->Length();
+    
+    for(int i = 0; i < inputSize; i++)
+    {
+        int page = pageInputs->Dequeue();
+        HoldPage(new Page(page), pageInputs);
+    }  
+}
+
+void LRU::HoldPage(Page* page, Queue<int>* pageInputs)
 {
     if(PageIsOnBoard(page))
     {

@@ -25,58 +25,23 @@ vector<int> cloneVector(vector<int> vect1)
     return vect2;
 }
 
-FIFO* processFifo(int boardQuantity, Queue<int>* pageInputs)
-{
-    FIFO* fifo = new FIFO(boardQuantity);
-    int inputSize = pageInputs->Length();
-    
-    for(int i = 0; i < inputSize; i++)
-    {
-        int page = pageInputs->Dequeue();
-        fifo->HoldPage(new Page(page));
-        pageInputs->Enqueue(page);
-    }
-
-    return fifo;
-}
-
-LRU* processLRU(int boardQuantity, Queue<int>* pageInputs)
-{
-    LRU* lru = new LRU(boardQuantity);
-    int inputSize = pageInputs->Length();
-    
-    for(int i = 0; i < inputSize; i++)
-    {
-        int page = pageInputs->Dequeue();
-        lru->HoldPage(new Page(page));
-        pageInputs->Enqueue(page);
-    }
-
-    return lru;
-}
-
-Optimal* processOptimal(int boardQuantity, Queue<int>* pageInputs)
-{
-    Optimal* optimal = new Optimal(boardQuantity);
-    optimal->ProcessInputs(pageInputs);
-
-    return optimal;
-}
-
 int main()
 {
     vector<int> allInputs = readDataFromFile();
     Queue<int>* queue = QueueUtils::from_std_vector(allInputs);
 
     int boardQuantity = queue->Dequeue();
-    int inputSize = queue->Length();
 
-    //FIFO* fifo = processFifo(boardQuantity, queue);
-    //LRU* lru = processLRU(boardQuantity, queue);
-    Optimal* optimal = processOptimal(boardQuantity, queue);
+    FIFO* fifo = new FIFO(boardQuantity);
+    LRU* lru = new LRU(boardQuantity);
+    Optimal* optimal = new Optimal(boardQuantity);
 
-    //cout << "FIFO " << fifo->GetMissPageQuant() << endl;
-    //cout << "LRU " << lru->GetMissPageQuant() << endl;
+    fifo->ProcessInputs(queue->Copy());
+    lru->ProcessInputs(queue->Copy());
+    optimal->ProcessInputs(queue->Copy());
+
+    cout << "FIFO " << fifo->GetMissPageQuant() << endl;
+    cout << "LRU " << lru->GetMissPageQuant() << endl;
     cout << "OTM " << optimal->GetMissPageQuant() << endl;
 
     return 0;

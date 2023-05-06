@@ -9,8 +9,9 @@ class LRU
 {
     public:
         LRU(int boardQuant);
-        void HoldPage(Page* page);
+        void HoldPage(Page* page, Queue<int>* pageInputs);
         int GetMissPageQuant();
+        void ProcessInputs(Queue<int>* pageInputs);
     private:
         Queue<Board*>* boards;
         int missPageQuant;

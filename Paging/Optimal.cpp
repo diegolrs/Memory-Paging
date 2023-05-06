@@ -23,7 +23,6 @@ void Optimal::ProcessInputs(Queue<int>* pageInputs)
     {
         int page = pageInputs->Dequeue();
         HoldPage(new Page(page), pageInputs);
-        //pageInputs->Enqueue(page);
     }
 }
 

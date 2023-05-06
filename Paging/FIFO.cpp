@@ -1,5 +1,4 @@
 #include "FIFO.hpp"
-#include <iostream>
 
 FIFO::FIFO(int boardQuant)
 {
@@ -13,7 +12,18 @@ FIFO::FIFO(int boardQuant)
     }
 }
 
-void FIFO::HoldPage(Page* page)
+void FIFO::ProcessInputs(Queue<int>* pageInputs)
+{
+    int inputSize = pageInputs->Length();
+    
+    for(int i = 0; i < inputSize; i++)
+    {
+        int page = pageInputs->Dequeue();
+        HoldPage(new Page(page), pageInputs);
+    }
+}
+
+void FIFO::HoldPage(Page* page, Queue<int>* pageInputs)
 {
     if(PageIsOnBoard(page))
     {

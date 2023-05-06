@@ -1,11 +1,8 @@
 #include "Optimal.hpp"
-#include <iostream>
-
 
 Optimal::Optimal(int boardQuant)
 {
     missPageQuant = 0;
-    //this->pageInputs = pageInputs->Copy();
     boards = new Queue<Board*>();
 
     for(int i = 0; i < boardQuant; i++)
@@ -30,27 +27,15 @@ void Optimal::HoldPage(Page* page, Queue<int>* pageInputs)
 {
     if(PageIsOnBoard(page))
     {
-        std::cout << page->GetNumber() << " " << " TEM PAG. " << std::endl;
         return;
     }
     
-    std::cout << page->GetNumber() << " " << " NAO TEM PAG. " << std::endl;
     this->missPageQuant++;
     boards = OptimalUtils::SortBoards(boards, pageInputs);
 
     Board* b = boards->Dequeue();
     b->HoldPage(page);
     boards->Enqueue(b);
-
-    std::cout << std::endl << "\n DEPOIS \n";
-    int size = boards->Length();
-    for(int i = 0; i < size; i++)
-    {
-        Board* b = boards->Dequeue();
-        std::cout << b->GetPageNumber() << ", ";
-        boards->Enqueue(b);
-    }
-    std::cout << "\n-----\n";
 }
 
 int Optimal::GetMissPageQuant()

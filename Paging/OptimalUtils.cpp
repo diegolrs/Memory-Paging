@@ -1,5 +1,4 @@
 #include "OptimalUtils.hpp"
-#include <iostream>
 
 using namespace std;
 
@@ -55,7 +54,6 @@ Queue<Board*>* OptimalUtils::SortBoards(Queue<Board*> *boards, Queue<int>* pageI
         {
             OptimalData _data = queue->Dequeue();
             sortedQueues->Enqueue(_data.board);
-            cout << _data.board->GetPageNumber() << " " << _data.distanceToNext << " " << endl;
         }
 
     return sortedQueues;

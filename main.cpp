@@ -10,6 +10,7 @@
 #include "Paging/FIFO.hpp"
 #include "Paging/LRU.hpp"
 #include "Paging/Optimal.hpp"
+#include "Tests/Test.hpp"
 
 using namespace std;
 
@@ -20,7 +21,7 @@ vector<int> readDataFromFile()
     return FileReader::ReadFile(FILE_ADDRESS);
 }
 
-int main()
+void runProgram()
 {
     vector<int> allInputs = readDataFromFile();
     Queue<int>* queue = QueueUtils::from_std_vector(allInputs);
@@ -37,6 +38,16 @@ int main()
     cout << "FIFO " << fifo->GetMissPageQuant() << endl;
     cout << "OTM " << optimal->GetMissPageQuant() << endl;
     cout << "LRU " << lru->GetMissPageQuant() << endl;
+}
 
+void runTests()
+{
+    Test::RunTests();
+}
+
+int main()
+{
+    runTests();
+    //runProgram();
     return 0;
 }

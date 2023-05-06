@@ -42,3 +42,18 @@ bool MemoryPaging::PageIsOnBoard(Page* page)
 
     return false;
 }
+
+int MemoryPaging::IndexOfBoardWithPage(Page* page)
+{
+    std::vector<Board*> vec = QueueUtils::to_std_vector(boards);
+
+    for(int i = 0; i < vec.size(); i++)
+    {
+        if(vec[i]->IsHoldingPage(page))
+        {
+            return i;
+        }
+    }
+
+    return -1;
+}

@@ -57,15 +57,8 @@ LRU* processLRU(int boardQuantity, Queue<int>* pageInputs)
 
 Optimal* processOptimal(int boardQuantity, Queue<int>* pageInputs)
 {
-    Optimal* optimal = new Optimal(boardQuantity, pageInputs);
-    int inputSize = pageInputs->Length();
-    
-    for(int i = 0; i < inputSize; i++)
-    {
-        int page = pageInputs->Dequeue();
-        optimal->HoldPage(new Page(page));
-        pageInputs->Enqueue(page);
-    }
+    Optimal* optimal = new Optimal(boardQuantity);
+    optimal->ProcessInputs(pageInputs);
 
     return optimal;
 }
@@ -78,12 +71,12 @@ int main()
     int boardQuantity = queue->Dequeue();
     int inputSize = queue->Length();
 
-    FIFO* fifo = processFifo(boardQuantity, queue);
-    LRU* lru = processLRU(boardQuantity, queue);
+    //FIFO* fifo = processFifo(boardQuantity, queue);
+    //LRU* lru = processLRU(boardQuantity, queue);
     Optimal* optimal = processOptimal(boardQuantity, queue);
 
-    cout << "FIFO " << fifo->GetMissPageQuant() << endl;
-    cout << "LRU " << lru->GetMissPageQuant() << endl;
+    //cout << "FIFO " << fifo->GetMissPageQuant() << endl;
+    //cout << "LRU " << lru->GetMissPageQuant() << endl;
     cout << "OTM " << optimal->GetMissPageQuant() << endl;
 
     return 0;

@@ -9,8 +9,10 @@
 class Optimal
 {
     public:
-        Optimal(int boardQuant, Queue<int>* pageInputs);
-        void HoldPage(Page* page);
+        Optimal(int boardQuant);
+        void ProcessInputs(Queue<int>* pageInputs);
+
+        void HoldPage(Page* page, Queue<int>* pageInputs);
         int GetMissPageQuant();
     private:
         Queue<Board*>* boards;

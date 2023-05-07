@@ -1,6 +1,7 @@
 #pragma once
 #include <assert.h>
 #include <vector>
+#include <iostream>
 
 #include "../Queue/Queue.hpp"
 #include "../Queue/QueueUtils.hpp"

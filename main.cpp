@@ -47,7 +47,7 @@ void runTests()
 
 int main()
 {
-    runTests();
-    //runProgram();
+    //runTests();
+    runProgram();
     return 0;
 }

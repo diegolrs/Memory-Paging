@@ -70,7 +70,15 @@ void Test::RunTests()
         Optimal* optimal = new Optimal(boardQuantity);
         LRU* lru = new LRU(boardQuantity);
 
-        ValidatePaging(fifo, optimal, lru, i);
-    }
+        fifo->ProcessInputs(queue->Copy());
+        optimal->ProcessInputs(queue->Copy());
+        lru->ProcessInputs(queue->Copy());
 
+        ValidatePaging(fifo, optimal, lru, i);
+
+        std::cout << "Input " << i+1 << " has passed with values: ";
+        std::cout << "FIFO = " << fifo->GetMissPageQuant() << ", ";
+        std::cout << "OTM = " << optimal->GetMissPageQuant() << ", ";
+        std::cout << "LRU = " << fifo->GetMissPageQuant() << std::endl;
+    }
 }

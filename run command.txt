@@ -1,1 +1,1 @@
-g++ *.cpp FileReader\*.cpp Slots\*.cpp Paging\*.cpp -o program
+g++ *.cpp FileReader\*.cpp Slots\*.cpp Tests\*cpp Paging\*.cpp -o program
